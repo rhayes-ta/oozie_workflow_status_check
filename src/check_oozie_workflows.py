@@ -23,11 +23,24 @@ This requires:
 root@box>yum install python-kerberos python-urllib2_kerberos pytz
 """
 
+'''
+For info on the Oozie REST API, try 
+https://oozie.apache.org/docs/3.1.3-incubating/WebServicesAPI.html#Jobs_Information
+
+Here's a sample URL to fetch coordinator status for user t4b:
+http://prodmaster01d.hdp.tripadvisor.com:11000/oozie/v1/jobs?filter=user%3Dt4b&jobtype=coordinator&len=100
+
+except jobtype=wf or jobtype=coordinator
+for workflow jobs, the appName matches the coordinators' coordJobName
+
+This can be used in name= filter, example (to get workflows in coordinator job t4b-review-dashboard user=t4b)
+http://prodmaster01d.hdp.tripadvisor.com:11000/oozie/v1/jobs?filter=user%3Dt4b;name%3Dt4b-review-dashboard&jobtype=wf
+'''
+
 import sys
 import urllib
 import json
 import datetime
-import urllib2_kerberos
 import urllib2
 import pytz
 
@@ -225,6 +238,9 @@ if __name__ == "__main__":
         print "Expecting [1] host [2] port [3] kerberos ruth (true|false) [4] range in minutes [5] number of jobs "
         sys.exit(0)
 
+    if kinit_truth:
+        import urllib2_kerberos
+    
     oozie_connection = OozieConnect(host, port, kinit_truth)
     # if oozie_connection.test_connection():
     #     print "Good Connection"
