@@ -5,14 +5,14 @@
 For info on the Oozie REST API, try 
 https://oozie.apache.org/docs/3.1.3-incubating/WebServicesAPI.html#Jobs_Information
 
-Here's a sample URL to fetch coordinator status for user t4b:
-http://prodmaster01d.hdp.tripadvisor.com:11000/oozie/v1/jobs?filter=user%3Dt4b&jobtype=coordinator&len=100
+Here's a sample URL to fetch coordinator status for user username:
+http://localhost:11000/oozie/v1/jobs?filter=user%3Dusername&jobtype=coordinator&len=100
 
 except jobtype=wf or jobtype=coordinator
 for workflow jobs, the appName matches the coordinators' coordJobName
 
-This can be used in name= filter, example (to get workflows in coordinator job t4b-review-dashboard user=t4b)
-http://prodmaster01d.hdp.tripadvisor.com:11000/oozie/v1/jobs?filter=user%3Dt4b;name%3Dt4b-review-dashboard&jobtype=wf
+This can be used in name= filter, example (to get workflows in coordinator job review-dashboard user=username)
+http://localhost:11000/oozie/v1/jobs?filter=user%3Dusername;name%3Dreview-dashboard&jobtype=wf
 '''
 
 import sys
